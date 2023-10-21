@@ -187,7 +187,7 @@ namespace ATMApp.UI
 
 
             //refactor this later
-            while(string.IsNullOrEmpty(firstName) || Utility.ContainsNumber(firstName))
+            while(string.IsNullOrWhiteSpace(firstName) || Utility.ContainsNumber(firstName))
             {
                 bool result = Utility.ContainsNumber(firstName);
                 if (result)
@@ -204,7 +204,7 @@ namespace ATMApp.UI
 
 
             string lastName = Validator.Convert<string>("Lastname");
-            while(string.IsNullOrEmpty(lastName) || Utility.ContainsNumber(lastName))
+            while(string.IsNullOrWhiteSpace(lastName) || Utility.ContainsNumber(lastName))
             {
                 bool result = Utility.ContainsNumber(lastName);
                 if (result)
@@ -221,15 +221,28 @@ namespace ATMApp.UI
 
             int gender = Validator.Convert<int>("Gender \n1 for Male. \n2 for Female.");
 
-            while (gender > 2)
+            while (gender > 2 || gender < 1)
             {
                 Utility.PrintMessage($"The only vlid inuputs are 1 and 2", false);
                 gender = Validator.Convert<int>("Gender \n1 for Male. \n2 for Female");
             }
 
             int accountType = Validator.Convert<int>("Account type \n1 For Savings Account. \n2 For Current Account. \n3 For Credit Account");
+            while (accountType > 3 || accountType < 1)
+            {
+                Utility.PrintMessage($"The only vlid inuputs are 1, 2 and 3", false);
+                accountType = Validator.Convert<int>("Account type \n1 For Savings Account. \n2 For Current Account. \n3 For Credit Account");
+            }
+
             int initialAccountBalance = Validator.Convert<int>("Inital deposit amount");
+
+            
             int accountPin = Validator.Convert<int>("Desired Pin");
+            while (accountPin.ToString().Length != 5)
+            {
+                Utility.PrintMessage($"Your pin has to be six digits long", false);
+                accountPin = Validator.Convert<int>("Desired Pin");
+            }
 
             userToBeRegistered.Id = GeneratorClass.GenerateId();
             userToBeRegistered.CardNumber = GeneratorClass.GenerateCardNumber();
