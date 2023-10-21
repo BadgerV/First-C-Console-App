@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ATMApp.UI
@@ -15,7 +16,9 @@ namespace ATMApp.UI
 
         internal const string cur = "N ";
 
-        
+     
+
+
 
         internal static bool InitialWelcome ()
         {
@@ -181,9 +184,50 @@ namespace ATMApp.UI
             var userToBeRegistered = new UserAccount();
 
             string firstName = Validator.Convert<string>("Firstnme");
+
+
+            //refactor this later
+            while(string.IsNullOrEmpty(firstName) || Utility.ContainsNumber(firstName))
+            {
+                bool result = Utility.ContainsNumber(firstName);
+                if (result)
+                {
+                    Utility.PrintMessage("Name cannot contain numbers", false);
+                    firstName = Validator.Convert<string>("Firstnme");
+                } else
+                {
+                    Utility.PrintMessage("Invalid Input. Firstname cannot be empty space", false);
+                    firstName = Validator.Convert<string>("Firstnme");
+                }
+            }
+
+
+
             string lastName = Validator.Convert<string>("Lastname");
+            while(string.IsNullOrEmpty(lastName) || Utility.ContainsNumber(lastName))
+            {
+                bool result = Utility.ContainsNumber(lastName);
+                if (result)
+                {
+                    Utility.PrintMessage("Name cannot contain numbers", false);
+                }
+                else
+                {
+                    Utility.PrintMessage("Invalid Input. Firstname cannot be empty space", false);
+                    firstName = Validator.Convert<string>("Firstnme");
+                }
+            }
+
+
             int gender = Validator.Convert<int>("Gender \n1 for Male. \n2 for Female.");
-            int accountType = Validator.Convert<int>("Account type \n1 for savings account. \n2 for current account. \n3 for credit account");
+
+            while (gender > 2)
+            {
+                Utility.PrintMessage($"The only vlid inuputs are 1 and 2", false);
+                gender = Validator.Convert<int>("Gender \n1 for Male. \n2 for Female");
+            }
+
+            int accountType = Validator.Convert<int>("Account type \n1 For Savings Account. \n2 For Current Account. \n3 For Credit Account");
             int initialAccountBalance = Validator.Convert<int>("Inital deposit amount");
             int accountPin = Validator.Convert<int>("Desired Pin");
 

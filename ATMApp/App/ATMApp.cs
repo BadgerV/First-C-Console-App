@@ -77,6 +77,7 @@ namespace ATMApp.App
 
             if(willregister == true)
             {
+                Console.Clear();
                 Console.WriteLine("Fill the following form to register\n\n");
                 RegisterUserAccount(screen.RegisterUser());
             } else
@@ -159,9 +160,10 @@ namespace ATMApp.App
         public void RegisterUserAccount(UserAccount userAccount)
         {
             userAccountList.Add(userAccount);
-            Console.Clear();
 
             Utility.PrintDotAnimation();
+            Utility.PrintMessage("Account Created Successfully", true);
+
 
             var table = new ConsoleTable("", "");
             table.AddRow("Account name:", userAccount.FullName);
@@ -169,13 +171,13 @@ namespace ATMApp.App
             table.AddRow("Card Number:", userAccount.CardNumber);
             table.AddRow("Card Pin:", userAccount.CardPin);
             table.AddRow("Account Balance:", userAccount.AccoutnBalance);
-            table.AddRow("Account Type:", (AccountType)userAccount.AccountType);
+            table.AddRow("Account Type:", $"{(AccountType)userAccount.AccountType} Account");
             table.AddRow("Gender:", (GenderType)userAccount.Gender);
 
-            Console.WriteLine($"User successfully registered.\n\nPlease write the following information down:\n{table.ToMarkDownString()}");
-            Console.WriteLine("\nThank you for banking with us");
+            Console.Clear();
 
-            Utility.PressEnterToContinue();
+            Console.WriteLine($"\nPlease write the following information down:\n{table.ToMarkDownString()}");
+            Utility.PrintMessage("Thank you for banking with us", true);
             Console.Clear();
         }
 

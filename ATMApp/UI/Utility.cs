@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ATMApp.UI
@@ -103,6 +104,21 @@ namespace ATMApp.UI
         public static string FormatAmount(decimal amt)
         {
             return String.Format(culture, "{0:c2}", amt);
+        }
+
+        public static bool IsEmptyOrWhiteSpace(string input)
+        {
+            return string.IsNullOrWhiteSpace(input);
+        }
+
+        public static bool ContainsNumber(string input)
+        {
+            // Use a regular expression to check for a number in the input string
+            // \d matches any digit (0-9)
+            Match match = Regex.Match(input, @"\d");
+
+            // If a match is found, it means the string contains a number
+            return match.Success;
         }
     } 
 }
