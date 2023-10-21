@@ -11,7 +11,31 @@ namespace ATMApp.UI
     public class AppScreen
     {
 
+        GeneratorClass GeneratorClass = new GeneratorClass();
+
         internal const string cur = "N ";
+
+        
+
+        internal static bool InitialWelcome ()
+        {
+            InformUserToRegister();
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+                    if (keyInfo.Key == ConsoleKey.D1)
+                    {
+                        return true;
+                    } else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
         internal static void Welcome()
         {
             //clears the console screen
@@ -28,7 +52,10 @@ namespace ATMApp.UI
             //prompts the user to insert atm card
             Console.WriteLine("Please Inert your ATM Card");
             Console.WriteLine("Note: Actual ATM machine will accept and validate a physical ATM card, read the card number and validate the card");
+
             Utility.PressEnterToContinue();
+
+           
         }
 
         internal static UserAccount UserLoginForm()
@@ -58,6 +85,12 @@ namespace ATMApp.UI
         {
             Console.WriteLine($"Welcmwelcome back, {fullName}");
             Utility.PressEnterToContinue();
+        }
+
+        internal static void InformUserToRegister()
+        {
+            Console.WriteLine("\n\nPress 1 to register if you dont have an account");
+            Console.WriteLine("\nPress Enter to proceed to ATM");
         }
 
         internal static void DisplayAppMenu()
@@ -142,5 +175,32 @@ namespace ATMApp.UI
             internalTransfer.RecipientBankAccountName = Utility.GetUserInput("Recipient name");
             return internalTransfer;
         }
+
+        internal UserAccount RegisterUser()
+        {
+            var userToBeRegistered = new UserAccount();
+
+            string firstName = Validator.Convert<string>("Firstnme");
+            string lastName = Validator.Convert<string>("Lastname");
+            int gender = Validator.Convert<int>("Gender \n1 for Male. \n2 for Female.");
+            int accountType = Validator.Convert<int>("Account type \n1 for savings account. \n2 for current account. \n3 for credit account");
+            int initialAccountBalance = Validator.Convert<int>("Inital deposit amount");
+            int accountPin = Validator.Convert<int>("Desired Pin");
+
+            userToBeRegistered.Id = GeneratorClass.GenerateId();
+            userToBeRegistered.CardNumber = GeneratorClass.GenerateCardNumber();
+            userToBeRegistered.AccountNumber = GeneratorClass.GenerateAccountNumber();
+            userToBeRegistered.FullName = $"{lastName} {firstName}";
+            userToBeRegistered.Gender = (GenderType)gender;
+            userToBeRegistered.AccountType = (AccountType)accountType;
+            userToBeRegistered.AccoutnBalance = initialAccountBalance;
+            userToBeRegistered.CardPin = accountPin;
+            userToBeRegistered.IsLocked = false;
+            userToBeRegistered.TotalLogin = 0;
+
+            return userToBeRegistered;
+        }
+
+
     }
 }

@@ -73,12 +73,24 @@ namespace ATMApp.App
 
         public void Run()
         {
-            AppScreen.Welcome();
+            bool willregister = AppScreen.InitialWelcome();
+
+            if(willregister == true)
+            {
+                Console.WriteLine("Fill the following form to register\n\n");
+                RegisterUserAccount(screen.RegisterUser());
+            } else
+            {
+                AppScreen.Welcome();
+                CheckUserCardNumberAndPassword();
+                AppScreen.WelcomeCustomer(selectedAccount.FullName);
+            }
+
+            AppScreen.InitialWelcome();
             CheckUserCardNumberAndPassword();
             AppScreen.WelcomeCustomer(selectedAccount.FullName);
 
-
-           while(true)
+            while (true)
             {
                 AppScreen.DisplayAppMenu();
 
@@ -142,6 +154,29 @@ namespace ATMApp.App
             };
 
             _listOfTransactions = new List<Transaction>();
+        }
+
+        public void RegisterUserAccount(UserAccount userAccount)
+        {
+            userAccountList.Add(userAccount);
+            Console.Clear();
+
+            Utility.PrintDotAnimation();
+
+            var table = new ConsoleTable("", "");
+            table.AddRow("Account name:", userAccount.FullName);
+            table.AddRow("Account number:", userAccount.AccountNumber);
+            table.AddRow("Card Number:", userAccount.CardNumber);
+            table.AddRow("Card Pin:", userAccount.CardPin);
+            table.AddRow("Account Balance:", userAccount.AccoutnBalance);
+            table.AddRow("Account Type:", (AccountType)userAccount.AccountType);
+            table.AddRow("Gender:", (GenderType)userAccount.Gender);
+
+            Console.WriteLine($"User successfully registered.\n\nPlease write the following information down:\n{table.ToMarkDownString()}");
+            Console.WriteLine("\nThank you for banking with us");
+
+            Utility.PressEnterToContinue();
+            Console.Clear();
         }
 
         public void CheckBalance()
