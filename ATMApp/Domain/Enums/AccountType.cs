@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ATMApp.Domain.Enums;
 
-namespace ATMApp.Domain.Enums
+public enum AccountType
 {
-    public enum AccountType
-    {
-        Savings = 1,
-        Current,
-        Credit
-    }
+    Savings = 1,
+    Current,
+    Credit
 }

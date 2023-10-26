@@ -14,7 +14,7 @@ namespace ATMApp.Domain.Entities
         public long UserBankAccountID { get; set; }
         public DateTime TransctionDate { get; set; }
         public TransactionType TransactionType { get; set; }
-        public string  Description { get; set; }
+        public string Description { get; set; } = default!;
         public Decimal TransactionAmount { get; set; }
     }
 }

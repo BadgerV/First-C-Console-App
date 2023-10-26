@@ -14,10 +14,7 @@ namespace ATMApp.UI
         private List<long> AccountNumberlist = new List<long>();
         private List<int> IdList = new List<int>();
 
-
-
         Random random = new Random();
-
 
         public long GenerateAccountNumber()
         {
@@ -40,10 +37,7 @@ namespace ATMApp.UI
             return ran;
         }
 
-
-
-
-        private long GenerateUniqueNumber (List<long> list)
+        private long GenerateUniqueNumber(List<long> list)
         {
             long randomNumber;
 

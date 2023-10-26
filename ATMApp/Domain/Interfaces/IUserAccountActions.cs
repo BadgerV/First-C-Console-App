@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ATMApp.Domain.DTOs;
 
 namespace ATMApp.Domain.Interfaces
 {
     public interface IUserAccountActions
     {
+        void CreateUserAccount(CreateUserAccountDto request);
+        void UserAppLogin();
         void CheckBalance();
         void PlaceDeposit();
         void MakeWithdrawal();
-
     }
 }

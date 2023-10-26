@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace ATMApp.UI
 {
@@ -14,7 +9,7 @@ namespace ATMApp.UI
             bool valid = false;
             string userInput;
 
-            while(!valid)
+            while (!valid)
             {
                 userInput = Utility.GetUserInput(prompt);
 
@@ -22,19 +17,21 @@ namespace ATMApp.UI
                 {
                     var converter = TypeDescriptor.GetConverter(typeof(T));
 
-                    if(converter != null)
+                    if (converter != null)
                     {
-                        return (T)converter.ConvertFromString(userInput);
-                    } else {
-                        return default;
+                        return (T)converter.ConvertFromString(userInput)!;
                     }
-                } catch
-
+                    else
+                    {
+                        return default!;
+                    }
+                }
+                catch
                 {
                     Utility.PrintMessage("Invalid Input. Try again", false);
                 }
             }
-            return default;
+            return default!;
         }
     }
 }
